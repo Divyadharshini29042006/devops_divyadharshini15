@@ -6,6 +6,7 @@ function App() {
     name: "",
     email: "",
     password: "",
+    confirmp: ""
   });
   const [errors, setErrors] = useState({});
 
@@ -18,8 +19,11 @@ function App() {
     if (!form.email.includes("@")) newErrors.email = "Invalid email";
     if (form.password.length < 6)
       newErrors.password = "Password must be at least 6 characters";
+    if (form.confirmp !== form.password)
+        newErrors.confirmp = "Password should be same as like the password"
     if (!isLogin && form.name.trim() === "")
       newErrors.name = "Name is required";
+
     return newErrors;
   };
 
@@ -29,15 +33,15 @@ function App() {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      alert(isLogin ? "Login successful " : "Signup successful ");
+      alert("login");
       setErrors({});
-      setForm({ name: "", email: "", password: "" });
+      setForm({ name: "", email: "", password: "",confirmp: "" });
     }
   };
 
   return (
     <>
-      <h1>{isLogin ? "Login" : "Signup"} Form</h1>
+      <h1>{ "Signup"} Form</h1>
 
       <form onSubmit={handleSubmit}>
         {!isLogin && (
@@ -74,16 +78,22 @@ function App() {
           />
           {errors.password && <p>{errors.password}</p>}
         </div>
+        <div>
+          <input
+            type="password"
+            name="password"
+            placeholder="Confirm Password"
+            value={form.confirmp}
+            onChange={handleChange}
+          />
+          {errors.confirmp && <p>{errors.confirmp}</p>}
+        </div>
 
-        <button type="submit">{isLogin ? "Login" : "Signup"}</button>
+
+        <button type="submit">Signup</button>
       </form>
 
-      <p>
-        {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-        <button type="button" onClick={() => setIsLogin(!isLogin)}>
-          {isLogin ? "Signup" : "Login"}
-        </button>
-      </p>
+      
     </>
   );
 }
