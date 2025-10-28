@@ -33,7 +33,7 @@ function App() {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      alert("login");
+      alert(isLogin ? "Login successful " : "Signup successful ");
       setErrors({});
       setForm({ name: "", email: "", password: "",confirmp: "" });
     }
@@ -41,7 +41,7 @@ function App() {
 
   return (
     <>
-      <h1>{ "Signup"} Form</h1>
+      <h1>{isLogin ? "Login" : "Signup"} Form</h1>
 
       <form onSubmit={handleSubmit}>
         {!isLogin && (
@@ -90,12 +90,25 @@ function App() {
         </div>
 
 
-        <button type="submit">Signup</button>
+        <button type="submit">{isLogin ? "Login" : "Signup"}</button>
       </form>
 
-      
+      <p>
+        {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+        <button type="button" onClick={() => setIsLogin(!isLogin)}>
+          {isLogin ? "Signup" : "Login"}
+        </button>
+      </p>
     </>
   );
 }
 
 export default App;
+
+
+
+
+
+/*
+docker bbuild -t username(hub)/imagename:v1 .
+docker run -d -p 3000 : 80 username/imagename:v1 */
