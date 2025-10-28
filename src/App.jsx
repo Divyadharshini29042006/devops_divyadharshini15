@@ -17,8 +17,8 @@ function App() {
   const validate = () => {
     const newErrors = {};
     if (!form.email.includes("@")) newErrors.email = "Invalid email";
-    if (form.password.length < 6)
-      newErrors.password = "Password must be at least 6 characters";
+    if (form.password.length < 8)
+      newErrors.password = "Password must be at least 8 characters";
     if (form.confirmp !== form.password)
         newErrors.confirmp = "Password should be same as like the password"
     if (!isLogin && form.name.trim() === "")
@@ -44,7 +44,7 @@ function App() {
       <h1>{isLogin ? "Login" : "Signup"} Form</h1>
 
       <form onSubmit={handleSubmit}>
-        {!isLogin && (
+       
           <div>
             <input
               type="text"
@@ -55,7 +55,6 @@ function App() {
             />
             {errors.name && <p>{errors.name}</p>}
           </div>
-        )}
 
         <div>
           <input
@@ -93,22 +92,9 @@ function App() {
         <button type="submit">{isLogin ? "Login" : "Signup"}</button>
       </form>
 
-      <p>
-        {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-        <button type="button" onClick={() => setIsLogin(!isLogin)}>
-          {isLogin ? "Signup" : "Login"}
-        </button>
-      </p>
+      
     </>
   );
 }
 
 export default App;
-
-
-
-
-
-/*
-docker bbuild -t username(hub)/imagename:v1 .
-docker run -d -p 3000 : 80 username/imagename:v1 */
