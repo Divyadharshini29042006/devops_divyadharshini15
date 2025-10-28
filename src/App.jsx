@@ -1,0 +1,91 @@
+import React, { useState } from "react";
+
+function App() {
+  const [isLogin, setIsLogin] = useState(true);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!form.email.includes("@")) newErrors.email = "Invalid email";
+    if (form.password.length < 6)
+      newErrors.password = "Password must be at least 6 characters";
+    if (!isLogin && form.name.trim() === "")
+      newErrors.name = "Name is required";
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      alert(isLogin ? "Login successful " : "Signup successful ");
+      setErrors({});
+      setForm({ name: "", email: "", password: "" });
+    }
+  };
+
+  return (
+    <>
+      <h1>{isLogin ? "Login" : "Signup"} Form</h1>
+
+      <form onSubmit={handleSubmit}>
+        {!isLogin && (
+          <div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={form.name}
+              onChange={handleChange}
+            />
+            {errors.name && <p>{errors.name}</p>}
+          </div>
+        )}
+
+        <div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+          />
+          {errors.email && <p>{errors.email}</p>}
+        </div>
+
+        <div>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+          />
+          {errors.password && <p>{errors.password}</p>}
+        </div>
+
+        <button type="submit">{isLogin ? "Login" : "Signup"}</button>
+      </form>
+
+      <p>
+        {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+        <button type="button" onClick={() => setIsLogin(!isLogin)}>
+          {isLogin ? "Signup" : "Login"}
+        </button>
+      </p>
+    </>
+  );
+}
+
+export default App;
