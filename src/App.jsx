@@ -6,7 +6,8 @@ function App() {
     name: "",
     email: "",
     password: "",
-    confirmp: ""
+    confirmp: "",
+    otp:""
   });
   const [errors, setErrors] = useState({});
 
@@ -35,7 +36,7 @@ function App() {
     } else {
       alert(isLogin ? "Login successful " : "Signup successful ");
       setErrors({});
-      setForm({ name: "", email: "", password: "",confirmp: "" });
+      setForm({ name: "", email: "", password: "",confirmp: "",otp:"" });
     }
   };
 
@@ -86,6 +87,9 @@ function App() {
             onChange={handleChange}
           />
           {errors.confirmp && <p>{errors.confirmp}</p>}
+        </div>
+        <div>
+          <input type="text" name ="OTP" placeholder="OTP" />
         </div>
 
 
